@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earn By Maruf</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src='//libtl.com/sdk.js' data-zone='9606399' data-sdk='show_9606399'></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Earn By Maruf</h1>
+    <div id="user-section">
+      <input type="text" id="username" placeholder="Enter your name" />
+      <button onclick="saveUser()">Start Earning</button>
+    </div>
+
+    <div id="dashboard" style="display:none;">
+      <h2>Welcome, <span id="display-name"></span>!</h2>
+      <p>Balance: <span id="balance">0</span> Points</p>
+
+      <div class="ad-banner">
+        <script src='//libtl.com/sdk.js' data-zone='9606399' data-sdk='show_9606399'></script>
+      </div>
+
+      <button onclick="watchAd()">Watch Ad</button>
+      <button onclick="clickAndEarn()">Click & Earn</button>
+      <button onclick="spinAndWin()">Spin & Win</button>
+      <button onclick="dailyBonus()">Daily Bonus</button>
+      <button onclick="copyReferral()">Referral Bonus</button>
+      <button onclick="withdraw()">Withdraw</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
