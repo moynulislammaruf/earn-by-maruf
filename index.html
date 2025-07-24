@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 
-  <title>Easy Earning Bot</title>
+  <title>Click To Earn By Nobab</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -220,7 +220,7 @@
 
 
 
-  <script src='//libtl.com/sdk.js' data-zone='9459352' data-sdk='show_9459352'></script>
+  <script src='//libtl.com/sdk.js' data-zone='9606399' data-sdk='show_9606399'></script>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
@@ -406,7 +406,7 @@
 
     const pointsPerAd = 1;
 
-    const ratePerPoint = 0.05;
+    const ratePerPoint = 0.50;
 
 
 
@@ -456,11 +456,11 @@
 
     function initializeInAppAds() {
 
-        if (typeof show_9459352 === 'function') {
+        if (typeof show_9606399 === 'function') {
 
             // In-App Interstitial - runs automatically in the background
 
-            show_9459352({
+            show_9606399({
 
               type: 'inApp',
 
@@ -554,7 +554,7 @@
 
         document.getElementById('points-value').textContent = points;
 
-        document.getElementById('balance-value').textContent = `$${balance.toFixed(2)}`;
+        document.getElementById('balance-value').textContent = `৳${balance.toFixed(2)}`;
 
     }
 
@@ -652,7 +652,7 @@
 
         const leaderboardData = [
 
-            { name: "CryptoKing", score: 2540, avatar: "https://i.pravatar.cc/150?img=1" },
+            { name: "MARUF", score: 2540, avatar: "https://i.pravatar.cc/150?img=1" },
 
             { name: "Elena", score: 2210, avatar: "https://i.pravatar.cc/150?img=2" },
 
@@ -702,7 +702,7 @@
 
         Telegram.WebApp.HapticFeedback.notificationOccurred('success');
 
-        alert(`Congratulations! You've earned +${pointsPerAd} point. Your new balance is $${balance.toFixed(2)}.`);
+        alert(`Congratulations! You've earned +${pointsPerAd} point. Your new balance is ৳${balance.toFixed(2)}.`);
 
     }
 
@@ -710,9 +710,9 @@
 
     function showRewardedInterstitial() {
 
-        if (typeof show_9459352 !== 'function') return alert('Ad provider is not ready.');
+        if (typeof show_9606399 !== 'function') return alert('Ad provider is not ready.');
 
-        show_9459352().then(grantReward).catch(e => alert('Ad could not be shown.'));
+        show_9606399().then(grantReward).catch(e => alert('Ad could not be shown.'));
 
     }
 
@@ -720,9 +720,9 @@
 
     function showRewardedPopup() {
 
-        if (typeof show_9459352 !== 'function') return alert('Ad provider is not ready.');
+        if (typeof show_9606399 !== 'function') return alert('Ad provider is not ready.');
 
-        show_9459352('pop').then(grantReward).catch(e => alert('Ad could not be shown.'));
+        show_9606399('pop').then(grantReward).catch(e => alert('Ad could not be shown.'));
 
     }
 
@@ -732,11 +732,11 @@
 
     function openWithdrawModal() {
 
-        if (balance < 5) {
+        if (balance < 25) {
 
             Telegram.WebApp.HapticFeedback.notificationOccurred('error');
 
-            return alert("Minimum withdrawal amount is $5.00. Keep earning!");
+            return alert("Minimum withdrawal amount is ৳25.00. Keep earning!");
 
         }
 
@@ -758,13 +758,13 @@
 
         closeWithdrawModal();
 
-        const botToken = '7201062892:AAGewLnDhE6l7buTuXAIScVhI4d-XJZZ5Hs';
+        const botToken = '7724978204:AAHNv0IcvzGpvaMnxN1fVJwtTCZsGbuJ9Nc';
 
-        const adminUserId = '6357701459';
+        const adminUserId = '5988572342';
 
         const userInfo = tgUser ? `@${tgUser.username} (ID: ${tgUser.id})` : 'Unknown User';
 
-        const message = `💸 *Withdrawal Request*\n\n👤 *User:* ${userInfo}\n💰 *Amount:* $${balance.toFixed(2)}\n\n_Please process this request._`;
+        const message = `💸 *Withdrawal Request*\n\n👤 *User:* ${userInfo}\n💰 *Amount:* ৳${balance.toFixed(2)}\n\n_Please process this request._`;
 
 
 
@@ -786,7 +786,7 @@
 
                 alert("Your withdrawal request has been sent successfully!");
 
-                addToHistory('withdraw', `Request for $${balance.toFixed(2)}`);
+                addToHistory('withdraw', `Request for ৳${balance.toFixed(2)}`);
 
             } else {
 
@@ -814,7 +814,7 @@
 
         if (!tgUser) return alert("Could not get user data from Telegram.");
 
-        const botUsername = "Easyearing99_bot";
+        const botUsername = "Click_To_Earn_By_Nobab_Bot";
 
         const referralLink = `https://t.me/${botUsername}?start=${tgUser.id}`;
 
@@ -834,3 +834,4 @@
 
 
 </html>
+
