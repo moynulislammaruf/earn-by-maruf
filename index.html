@@ -1,163 +1,412 @@
-<!DOCTYPE html><html lang="bn">
+<!doctype html>
+<html lang="bn">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Diploma Final CGPA Calculator (BTEB 2022)</title>
+  <title>Amar Club - Mock</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--glass:rgba(255,255,255,0.03)}
+    :root{
+      --green:#19a974;
+      --green-dark:#0f8a56;
+      --accent:#f7f9fa;
+      --card-bg:#ffffff;
+      --muted:#6b7280;
+      --danger:#ef4444;
+      --radius:14px;
+      --shadow: 0 6px 18px rgba(15,23,42,0.08);
+    }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:linear-gradient(180deg,#071021 0%, #081428 100%);color:#e6eef6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-    .wrap{width:100%;max-width:920px}
-    header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
-    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#052026}
-    h1{font-size:20px;margin:0}
-    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);padding:18px;border-radius:12px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-label{font-size:13px;color:var(--muted)}
-input[type=number]{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;font-size:15px}
-.controls{display:flex;gap:8px;margin-top:12px}
-button{padding:10px 12px;border-radius:10px;border:none;font-weight:600;cursor:pointer}
-.btn-primary{background:var(--accent);color:#042226}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-.result{margin-top:14px;padding:14px;border-radius:10px;background:linear-gradient(90deg, rgba(6,182,212,0.06), rgba(124,58,237,0.04));border:1px solid rgba(255,255,255,0.03)}
-.big{font-size:28px;font-weight:800}
-.small{font-size:13px;color:var(--muted)}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background:#f3f6f5;
+      color:#0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-.breakdown{margin-top:12px;border-top:1px dashed rgba(255,255,255,0.03);padding-top:10px}
-table{width:100%;border-collapse:collapse;color:inherit}
-th,td{padding:8px;text-align:left;font-size:13px}
-th{color:var(--muted);font-weight:600}
+    /* container */
+    .app{
+      max-width:420px;
+      margin:0 auto;
+      padding:12px;
+    }
 
-footer{margin-top:12px;color:var(--muted);font-size:13px;text-align:center}
+    /* top bar */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:8px 4px;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .logo .mark{
+      width:36px;
+      height:36px;
+      border-radius:8px;
+      background:linear-gradient(135deg,var(--green),#25c982);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:700;
+      box-shadow:var(--shadow);
+    }
+    .logo .text{
+      font-weight:700;
+      color:var(--green-dark);
+    }
+    .balance{
+      text-align:right;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .balance .amount{ color:var(--green-dark); font-weight:700; display:block; }
 
-@media(max-width:700px){.grid{grid-template-columns:1fr}.logo{width:48px;height:48px}}
+    /* banner carousel */
+    .carousel{
+      margin:8px 0;
+      border-radius:12px;
+      overflow:hidden;
+      position:relative;
+      height:140px;
+      box-shadow:var(--shadow);
+    }
+    .slides{
+      display:flex;
+      height:100%;
+      transition:transform .45s cubic-bezier(.2,.9,.3,1);
+    }
+    .slide{
+      min-width:100%;
+      background:linear-gradient(90deg,#064e3b 0%, #0ea57a 100%);
+      color:white;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:16px;
+    }
+    .plane{
+      width:110px;
+      height:84px;
+      background:linear-gradient(45deg,#ff7a18,#ffb347);
+      border-radius:8px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.15);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+    }
+    .slide h2{ margin:0; font-size:20px; letter-spacing:.4px }
+    .dots{
+      display:flex;
+      gap:6px;
+      position:absolute;
+      bottom:8px;
+      left:50%;
+      transform:translateX(-50%);
+    }
+    .dot{
+      width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,0.35);
+    }
+    .dot.active{ background:white; width:26px; border-radius:12px; height:8px; }
 
+    /* indicator bar message */
+    .notice{
+      margin:12px 0;
+      background:linear-gradient(90deg,#f8fafc,#ffffff);
+      border-radius:999px;
+      padding:10px 12px;
+      box-shadow:var(--shadow);
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .notice .play{ width:34px;height:34px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    .notice .txt{ font-size:14px; color:#0b1220; flex:1; }
+
+    /* category icons */
+    .cats{
+      display:flex;
+      gap:12px;
+      overflow-x:auto;
+      padding:12px 2px;
+    }
+    .cat{
+      min-width:72px;
+      text-align:center;
+      font-size:13px;
+    }
+    .cat .ico{
+      width:64px;height:64px;border-radius:50%;
+      background:linear-gradient(180deg,#e9f7ef,#ffffff);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 6px 14px rgba(18,52,32,0.06);
+      margin:0 auto 8px;
+    }
+
+    /* recommended */
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 4px;
+      margin-top:6px;
+    }
+    .section-title .bar{ width:4px;height:18px;background:var(--green);border-radius:4px; }
+    .section-title h3{ margin:0;font-size:16px; font-weight:700; color:#0f1724; }
+    .section-sub{ color:var(--muted); font-size:13px; margin:2px 4px 12px; }
+
+    .games{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+    .card{
+      background:linear-gradient(180deg,white,#fff);
+      border-radius:12px;
+      padding:10px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .card .thumb{
+      height:110px;
+      border-radius:8px;
+      background-size:cover;
+      background-position:center;
+      margin-bottom:8px;
+    }
+    .card h4{ margin:0; font-size:14px; }
+    .odds{
+      display:inline-block;
+      margin-top:8px;
+      background:linear-gradient(90deg,#e6ffef,#dcfce7);
+      color:var(--green-dark);
+      padding:6px 8px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:600;
+    }
+
+    /* floating add to desktop */
+    .add-desktop{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:88px;
+      background:linear-gradient(90deg,var(--green),#25c982);
+      color:white;
+      padding:12px 22px;
+      border-radius:40px;
+      box-shadow:0 12px 30px rgba(15,98,64,0.16);
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      z-index:40;
+    }
+
+    /* bottom nav */
+    .bnav{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:10px;
+      width:calc(100% - 24px);
+      max-width:420px;
+      background:white;
+      border-radius:18px;
+      display:flex;
+      justify-content:space-around;
+      padding:10px 8px;
+      box-shadow:0 12px 30px rgba(2,6,23,0.08);
+      z-index:50;
+    }
+    .bnav button{ background:transparent;border:0;font-size:12px;color:var(--muted); display:flex;flex-direction:column;align-items:center; gap:6px; }
+    .bnav button.active{ color:var(--green-dark); font-weight:700; }
+
+    /* helpers */
+    .small{ font-size:12px; color:var(--muted) }
+    @media(min-width:880px){
+      body{ background:#fff; }
+      .app{ margin-top:20px; box-shadow:0 10px 30px rgba(2,6,23,0.06); border-radius:12px; overflow:hidden; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">DT</div>
-      <div>
-        <h1>Diploma Final CGPA Calculator (BTEB 2022)</h1>
-        <p class="lead">ওজন: 1ম-5%, 2য়-5%, 3য়-10%, 4র্থ-10%, 5ম-20%, 6ষ্ঠ-20%, 7ম-20%, 8ম-10%</p>
+  <div class="app" role="main">
+    <header class="topbar" role="banner">
+      <div class="logo">
+        <div class="mark">AC</div>
+        <div>
+          <div class="text">AMAR</div>
+          <div class="small">CLUB</div>
+        </div>
       </div>
-    </header><div class="card">
-  <form id="cgpaForm" onsubmit="return false;">
-    <div class="grid">
-      <div>
-        <label>1ম সেমিস্টার GPA</label>
-        <input id="g1" type="number" step="0.01" min="0" max="4" placeholder="উদাহরণ: 3.25">
+      <div class="balance" aria-hidden>
+        Balance
+        <span class="amount">৳0.02</span>
       </div>
-      <div>
-        <label>2য় সেমিস্টার GPA</label>
-        <input id="g2" type="number" step="0.01" min="0" max="4" placeholder="উদাহরণ: 3.40">
+    </header>
+
+    <!-- carousel -->
+    <section class="carousel" aria-roledescription="carousel" aria-label="Main promotions">
+      <div class="slides" id="slides">
+        <div class="slide" style="background:linear-gradient(90deg,#0f7a5a,#13b87f);">
+          <div style="flex:1">
+            <h2>AVIATOR<br/><small style="font-size:12px;opacity:.9">Rewards up to 50%</small></h2>
+            <p class="small" style="opacity:.95">Aviator's High Multiplier Award Winner</p>
+          </div>
+          <div class="plane">✈️</div>
+        </div>
+        <div class="slide" style="background:linear-gradient(90deg,#2b6cb0,#60a5fa);">
+          <div style="flex:1">
+            <h2>Fortune Gems</h2>
+            <p class="small">Spin the wheel — big prizes</p>
+          </div>
+          <div class="plane">💎</div>
+        </div>
+        <div class="slide" style="background:linear-gradient(90deg,#b94b4b,#ff7a7a);">
+          <div style="flex:1">
+            <h2>Lottery</h2>
+            <p class="small">Try your luck</p>
+          </div>
+          <div class="plane">🎟️</div>
+        </div>
       </div>
-      <div>
-        <label>3য় সেমিস্টার GPA</label>
-        <input id="g3" type="number" step="0.01" min="0" max="4" placeholder="উদাহরণ: 3.10">
+      <div class="dots" id="dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
       </div>
-      <div>
-        <label>4র্থ সেমিস্টার GPA</label>
-        <input id="g4" type="number" step="0.01" min="0" max="4" placeholder="উদাহরণ: 3.30">
+    </section>
+
+    <div class="notice" role="status" aria-live="polite">
+      <div class="play">►</div>
+      <div class="txt">1. Welcome to become a member of the AMAR CLUB family. We sincerely invite you...</div>
+      <button style="background:transparent;border:0;color:var(--green-dark);font-weight:700">Detail</button>
+    </div>
+
+    <!-- categories -->
+    <div class="cats" aria-label="categories">
+      <div class="cat">
+        <div class="ico">🎰</div>
+        <div>Hot Slots</div>
       </div>
-      <div>
-        <label>5ম সেমিস্টার GPA</label>
-        <input id="g5" type="number" step="0.01" min="0" max="4" placeholder="উদাহরণ: 3.60">
+      <div class="cat">
+        <div class="ico">🎟️</div>
+        <div>Lottery</div>
       </div>
-      <div>
-        <label>6ষ্ঠ সেমিস্টার GPA</label>
-        <input id="g6" type="number" step="0.01" min="0" max="4" placeholder="উদাহরণ: 3.80">
+      <div class="cat">
+        <div class="ico">🕹️</div>
+        <div>Slots</div>
       </div>
-      <div>
-        <label>7ম সেমিস্টার GPA</label>
-        <input id="g7" type="number" step="0.01" min="0" max="4" placeholder="উদাহরণ: 3.75">
+      <div class="cat">
+        <div class="ico">✈️</div>
+        <div>Original</div>
       </div>
-      <div>
-        <label>8ম সেমিস্টার GPA</label>
-        <input id="g8" type="number" step="0.01" min="0" max="4" placeholder="উদাহরণ: 3.50">
+      <div class="cat">
+        <div class="ico">💰</div>
+        <div>Card</div>
       </div>
     </div>
 
-    <div class="controls">
-      <button class="btn-primary" id="calcBtn" type="button">হিসাব কর</button>
-      <button class="btn-ghost" id="resetBtn" type="button">রিসেট</button>
-      <button class="btn-ghost" id="downloadBtn" type="button">Download .html</button>
+    <!-- recommended -->
+    <div class="section-title">
+      <div class="bar" aria-hidden></div>
+      <h3>Recommended Games</h3>
+    </div>
+    <div class="section-sub">The most popular electronic games among players</div>
+
+    <div class="games" id="gameGrid">
+      <!-- card 1 -->
+      <article class="card" role="article" aria-label="Fortune Gems 2">
+        <div class="thumb" style="background:
+          radial-gradient(circle at 30% 30%, #f9d423, #f97316), linear-gradient(90deg,#6b21a8,#3b82f6);">
+        </div>
+        <h4>FORTUNE GEMS 2</h4>
+        <div class="odds">odds of&nbsp;<strong>96.67%</strong></div>
+      </article>
+
+      <!-- card 2 -->
+      <article class="card" role="article" aria-label="Money Coming">
+        <div class="thumb" style="background:
+          linear-gradient(135deg,#10b981,#34d399); display:flex; align-items:center; justify-content:center;">
+          <div style="font-weight:800;color:#053019">৳</div>
+        </div>
+        <h4>MONEY COMING</h4>
+        <div class="odds">odds of&nbsp;<strong>97.95%</strong></div>
+      </article>
+
+      <!-- card 3 -->
+      <article class="card" role="article" aria-label="Aviator">
+        <div class="thumb" style="background:
+          linear-gradient(135deg,#ef4444,#f97316); display:flex; align-items:center; justify-content:center;">
+          <div style="font-weight:800;color:white">✈️</div>
+        </div>
+        <h4>AVIATOR</h4>
+        <div class="odds">odds of&nbsp;<strong>97%</strong></div>
+      </article>
+
+      <!-- card 4 -->
+      <article class="card" role="article" aria-label="Chicken Road">
+        <div class="thumb" style="background:
+          linear-gradient(135deg,#f59e0b,#fb923c); display:flex; align-items:center; justify-content:center;">
+          <div style="font-weight:800;color:#5a2d00">🐔</div>
+        </div>
+        <h4>CHICKEN ROAD</h4>
+        <div class="odds">odds of&nbsp;<strong>95.12%</strong></div>
+      </article>
     </div>
 
-    <div id="out" class="result" style="display:none">
-      <div class="big" id="finalVal">0.00</div>
-      <div class="small" id="finalGrade">Grade: -</div>
-
-      <div class="breakdown">
-        <table>
-          <thead><tr><th>Semester</th><th>GPA</th><th>Weight (%)</th><th>Weighted</th></tr></thead>
-          <tbody id="breakbody"></tbody>
-        </table>
-      </div>
+    <!-- floating button -->
+    <div class="add-desktop" role="button" aria-label="Add to Desktop">
+      ➕ Add to Desktop
     </div>
-  </form>
 
-  <footer>নোট: 4.00 স্কেল অনুযায়ী GPA দিন। ন্যূনতম পাসিং CPA = 2.00</footer>
-</div>
+  </div>
 
-  </div>  <script>
-    const weights = [0,5,5,10,10,20,20,20,10];
-    const calcBtn = document.getElementById('calcBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const out = document.getElementById('out');
-    const breakbody = document.getElementById('breakbody');
-    const finalVal = document.getElementById('finalVal');
-    const finalGrade = document.getElementById('finalGrade');
+  <!-- bottom nav -->
+  <nav class="bnav" role="navigation" aria-label="primary">
+    <button class="active"><span style="font-size:18px">🏷️</span><span>Promotion</span></button>
+    <button><span style="font-size:18px">🎁</span><span>Activity</span></button>
+    <button><span style="font-size:18px">🎮</span><span>Game</span></button>
+    <button><span style="font-size:18px">👛</span><span>Wallet</span></button>
+    <button><span style="font-size:18px">👤</span><span>Account</span></button>
+  </nav>
 
-    function getG(i){
-      const v = parseFloat(document.getElementById('g'+i).value);
-      return (Number.isFinite(v) ? v : 0);
-    }
+  <script>
+    // simple carousel logic
+    (function(){
+      const slides = document.getElementById('slides');
+      const dots = [...document.querySelectorAll('#dots .dot')];
+      let idx = 0;
+      const total = slides.children.length;
 
-    function gradeFromCGPA(c){
-      if(c >= 3.75) return 'Distinction (A+)';
-      if(c >= 3.50) return 'A';
-      if(c >= 3.00) return 'B';
-      if(c >= 2.00) return 'C (Pass)';
-      return 'F (Fail)';
-    }
-
-    calcBtn.addEventListener('click', ()=>{
-      breakbody.innerHTML='';
-      let total = 0;
-      for(let i=1;i<=8;i++){
-        const g = getG(i);
-        if(g < 0 || g > 4){ alert('GPA must be between 0 and 4 for semester '+i); return; }
-        const w = weights[i];
-        const weighted = +(g * w).toFixed(4);
-        total += weighted;
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td> ${i}ম</td><td>${g.toFixed(2)}</td><td>${w}%</td><td>${weighted.toFixed(2)}</td>`;
-        breakbody.appendChild(tr);
+      function go(i){
+        idx = (i + total) % total;
+        slides.style.transform = 'translateX(' + (-idx * 100) + '%)';
+        dots.forEach((d,di)=> d.classList.toggle('active', di===idx));
       }
-      const final = total/100;
-      finalVal.textContent = final.toFixed(2);
-      finalGrade.textContent = 'Status: ' + gradeFromCGPA(final);
-      out.style.display='block';
-      out.scrollIntoView({behavior:'smooth',block:'center'});
-    });
+      // auto rotate
+      let timer = setInterval(()=> go(idx+1), 3500);
 
-    resetBtn.addEventListener('click', ()=>{
-      for(let i=1;i<=8;i++) document.getElementById('g'+i).value='';
-      out.style.display='none';
-      breakbody.innerHTML='';
-    });
+      // pause on hover
+      const carousel = document.querySelector('.carousel');
+      carousel.addEventListener('mouseenter', ()=> clearInterval(timer));
+      carousel.addEventListener('mouseleave', ()=> timer = setInterval(()=> go(idx+1), 3500));
 
-    // Download the current page HTML as a file
-    document.getElementById('downloadBtn').addEventListener('click', ()=>{
-      const html = `<!doctype html>\n` + document.documentElement.outerHTML;
-      const blob = new Blob([html], {type:'text/html'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'diploma_cgpa_calculator.html';
-      document.body.appendChild(a); a.click(); a.remove();
-      URL.revokeObjectURL(url);
-    });
-  </script></body>
+      // dot clicks
+      dots.forEach((d,i)=> d.addEventListener('click', ()=> { go(i); }));
+    })();
+  </script>
+</body>
 </html>
