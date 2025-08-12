@@ -1,148 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Panel - Click to Earn</title>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #f4f6f9;
-      color: #333;
-    }
-
-    header {
-      background-color: #1f2937;
-      color: white;
-      padding: 1rem 2rem;
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-
-    main {
-      padding: 2rem;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: white;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    th, td {
-      padding: 12px 16px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
-
-    th {
-      background-color: #f0f2f5;
-      font-weight: 600;
-    }
-
-    tr:hover {
-      background-color: #f9fafc;
-    }
-
-    button {
-      padding: 6px 12px;
-      background-color: #3b82f6;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    button:hover {
-      background-color: #2563eb;
-    }
-
-    input {
-      width: 80px;
-      padding: 4px;
-      font-size: 14px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Diploma Final CGPA Calculator (2022 Regulation)</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px; }
+    h2 { text-align: center; }
+    .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input { width: 100%; padding: 8px; margin: 5px 0; }
+    button { width: 100%; padding: 10px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #45a049; }
+    .result { margin-top: 10px; padding: 10px; background: #e0f7e9; border-radius: 5px; font-weight: bold; }
+</style>
 </head>
 <body>
-  <header>
-    Admin Panel - Click to Earn
-  </header>
-  <main>
-    <table id="users-table">
-      <thead>
-        <tr>
-          <th>User ID</th>
-          <th>Points</th>
-          <th>Balance (৳)</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Data will be inserted here by JS -->
-      </tbody>
-    </table>
-  </main>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyAHrKPlyTYOm-qrbnBwnyzv7BC07QIPBDQ",
-      authDomain: "click-to-earn-caf36.firebaseapp.com",
-      projectId: "click-to-earn-caf36",
-      storageBucket: "click-to-earn-caf36.appspot.com",
-      messagingSenderId: "706228899164",
-      appId: "1:706228899164:web:35d8a24cb22965d66abeb3"
-    };
+<div class="container">
+    <h2>Diploma Final CGPA Calculator<br><small>(2022 Regulation)</small></h2>
+    <label>1st Semester GPA:</label><input type="number" step="0.01" id="g1">
+    <label>2nd Semester GPA:</label><input type="number" step="0.01" id="g2">
+    <label>3rd Semester GPA:</label><input type="number" step="0.01" id="g3">
+    <label>4th Semester GPA:</label><input type="number" step="0.01" id="g4">
+    <label>5th Semester GPA:</label><input type="number" step="0.01" id="g5">
+    <label>6th Semester GPA:</label><input type="number" step="0.01" id="g6">
+    <label>7th Semester GPA:</label><input type="number" step="0.01" id="g7">
+    <label>8th Semester GPA:</label><input type="number" step="0.01" id="g8">
 
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    <button onclick="calculateCGPA()">Calculate Final CGPA</button>
+    <div class="result" id="result"></div>
+</div>
 
-    const usersTableBody = document.querySelector("#users-table tbody");
-
-    function loadUsers() {
-      db.collection("users").get().then(snapshot => {
-        usersTableBody.innerHTML = "";
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const row = document.createElement("tr");
-
-          row.innerHTML = `
-            <td>${doc.id}</td>
-            <td><input type="number" value="${data.points || 0}" data-id="${doc.id}" data-field="points" /></td>
-            <td><input type="number" step="0.01" value="${data.balance || 0}" data-id="${doc.id}" data-field="balance" /></td>
-            <td><button onclick="save('${doc.id}')">Save</button></td>
-          `;
-          usersTableBody.appendChild(row);
-        });
-      });
+<script>
+function calculateCGPA() {
+    let g = [];
+    for (let i = 1; i <= 8; i++) {
+        g[i] = parseFloat(document.getElementById('g' + i).value) || 0;
     }
-
-    function save(userId) {
-      const pointsInput = document.querySelector(`input[data-id="${userId}"][data-field="points"]`);
-      const balanceInput = document.querySelector(`input[data-id="${userId}"][data-field="balance"]`);
-
-      const newPoints = parseInt(pointsInput.value);
-      const newBalance = parseFloat(balanceInput.value);
-
-      db.collection("users").doc(userId).update({
-        points: newPoints,
-        balance: newBalance
-      }).then(() => {
-        alert("✅ Updated successfully");
-      }).catch(err => {
-        console.error("Update error:", err);
-        alert("❌ Failed to update");
-      });
+    let weights = [0, 5, 5, 10, 10, 20, 20, 20, 10];
+    let total = 0;
+    for (let i = 1; i <= 8; i++) {
+        total += g[i] * weights[i];
     }
+    let finalCGPA = total / 100;
+    document.getElementById('result').innerHTML = "📊 Final CGPA: " + finalCGPA.toFixed(2);
+}
+</script>
 
-    loadUsers();
-  </script>
-</bod
+</body>
+</html>
