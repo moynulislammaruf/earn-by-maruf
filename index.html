@@ -1,412 +1,166 @@
-<!doctype html>
-<html lang="bn">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Amar Club - Mock</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --green:#19a974;
-      --green-dark:#0f8a56;
-      --accent:#f7f9fa;
-      --card-bg:#ffffff;
-      --muted:#6b7280;
-      --danger:#ef4444;
-      --radius:14px;
-      --shadow: 0 6px 18px rgba(15,23,42,0.08);
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SocialHub - Modern Facebook Style</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        --bg: #f0f2f5;
+        --text: #050505;
+        --card-bg: #fff;
+        --nav-bg: #fff;
+        --border: #ddd;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      background:#f3f6f5;
-      color:#0f1724;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+    body.dark {
+        --bg: #18191a;
+        --text: #e4e6eb;
+        --card-bg: #242526;
+        --nav-bg: #242526;
+        --border: #3a3b3c;
     }
-
-    /* container */
-    .app{
-      max-width:420px;
-      margin:0 auto;
-      padding:12px;
+    header {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        background: var(--nav-bg);
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid var(--border);
+        z-index: 10;
     }
-
-    /* top bar */
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:8px 4px;
+    header input {
+        flex: 1;
+        padding: 6px 10px;
+        border-radius: 20px;
+        border: none;
+        background: var(--bg);
+        margin-left: 10px;
     }
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:8px;
+    main {
+        display: grid;
+        grid-template-columns: 250px 1fr 250px;
+        margin-top: 60px;
+        gap: 20px;
+        padding: 20px;
     }
-    .logo .mark{
-      width:36px;
-      height:36px;
-      border-radius:8px;
-      background:linear-gradient(135deg,var(--green),#25c982);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:white;
-      font-weight:700;
-      box-shadow:var(--shadow);
+    .sidebar, .rightbar {
+        background: var(--card-bg);
+        border-radius: 10px;
+        padding: 10px;
+        height: fit-content;
     }
-    .logo .text{
-      font-weight:700;
-      color:var(--green-dark);
+    .feed {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
-    .balance{
-      text-align:right;
-      font-size:13px;
-      color:var(--muted);
+    .card {
+        background: var(--card-bg);
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
     }
-    .balance .amount{ color:var(--green-dark); font-weight:700; display:block; }
-
-    /* banner carousel */
-    .carousel{
-      margin:8px 0;
-      border-radius:12px;
-      overflow:hidden;
-      position:relative;
-      height:140px;
-      box-shadow:var(--shadow);
+    .story-container {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
     }
-    .slides{
-      display:flex;
-      height:100%;
-      transition:transform .45s cubic-bezier(.2,.9,.3,1);
+    .story {
+        min-width: 100px;
+        height: 150px;
+        background: gray;
+        border-radius: 10px;
+        flex-shrink: 0;
+        background-size: cover;
+        background-position: center;
+        position: relative;
     }
-    .slide{
-      min-width:100%;
-      background:linear-gradient(90deg,#064e3b 0%, #0ea57a 100%);
-      color:white;
-      display:flex;
-      align-items:center;
-      gap:14px;
-      padding:16px;
+    .story span {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        font-size: 12px;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        padding: 2px 5px;
+        border-radius: 5px;
     }
-    .plane{
-      width:110px;
-      height:84px;
-      background:linear-gradient(45deg,#ff7a18,#ffb347);
-      border-radius:8px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.15);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:800;
+    button {
+        background: #1877f2;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
     }
-    .slide h2{ margin:0; font-size:20px; letter-spacing:.4px }
-    .dots{
-      display:flex;
-      gap:6px;
-      position:absolute;
-      bottom:8px;
-      left:50%;
-      transform:translateX(-50%);
+    .theme-toggle {
+        margin-left: 10px;
     }
-    .dot{
-      width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,0.35);
-    }
-    .dot.active{ background:white; width:26px; border-radius:12px; height:8px; }
-
-    /* indicator bar message */
-    .notice{
-      margin:12px 0;
-      background:linear-gradient(90deg,#f8fafc,#ffffff);
-      border-radius:999px;
-      padding:10px 12px;
-      box-shadow:var(--shadow);
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .notice .play{ width:34px;height:34px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
-    .notice .txt{ font-size:14px; color:#0b1220; flex:1; }
-
-    /* category icons */
-    .cats{
-      display:flex;
-      gap:12px;
-      overflow-x:auto;
-      padding:12px 2px;
-    }
-    .cat{
-      min-width:72px;
-      text-align:center;
-      font-size:13px;
-    }
-    .cat .ico{
-      width:64px;height:64px;border-radius:50%;
-      background:linear-gradient(180deg,#e9f7ef,#ffffff);
-      display:flex;align-items:center;justify-content:center;
-      box-shadow:0 6px 14px rgba(18,52,32,0.06);
-      margin:0 auto 8px;
-    }
-
-    /* recommended */
-    .section-title{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 4px;
-      margin-top:6px;
-    }
-    .section-title .bar{ width:4px;height:18px;background:var(--green);border-radius:4px; }
-    .section-title h3{ margin:0;font-size:16px; font-weight:700; color:#0f1724; }
-    .section-sub{ color:var(--muted); font-size:13px; margin:2px 4px 12px; }
-
-    .games{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:12px;
-    }
-    .card{
-      background:linear-gradient(180deg,white,#fff);
-      border-radius:12px;
-      padding:10px;
-      box-shadow:var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .card .thumb{
-      height:110px;
-      border-radius:8px;
-      background-size:cover;
-      background-position:center;
-      margin-bottom:8px;
-    }
-    .card h4{ margin:0; font-size:14px; }
-    .odds{
-      display:inline-block;
-      margin-top:8px;
-      background:linear-gradient(90deg,#e6ffef,#dcfce7);
-      color:var(--green-dark);
-      padding:6px 8px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:600;
-    }
-
-    /* floating add to desktop */
-    .add-desktop{
-      position:fixed;
-      left:50%;
-      transform:translateX(-50%);
-      bottom:88px;
-      background:linear-gradient(90deg,var(--green),#25c982);
-      color:white;
-      padding:12px 22px;
-      border-radius:40px;
-      box-shadow:0 12px 30px rgba(15,98,64,0.16);
-      font-weight:700;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      z-index:40;
-    }
-
-    /* bottom nav */
-    .bnav{
-      position:fixed;
-      left:50%;
-      transform:translateX(-50%);
-      bottom:10px;
-      width:calc(100% - 24px);
-      max-width:420px;
-      background:white;
-      border-radius:18px;
-      display:flex;
-      justify-content:space-around;
-      padding:10px 8px;
-      box-shadow:0 12px 30px rgba(2,6,23,0.08);
-      z-index:50;
-    }
-    .bnav button{ background:transparent;border:0;font-size:12px;color:var(--muted); display:flex;flex-direction:column;align-items:center; gap:6px; }
-    .bnav button.active{ color:var(--green-dark); font-weight:700; }
-
-    /* helpers */
-    .small{ font-size:12px; color:var(--muted) }
-    @media(min-width:880px){
-      body{ background:#fff; }
-      .app{ margin-top:20px; box-shadow:0 10px 30px rgba(2,6,23,0.06); border-radius:12px; overflow:hidden; }
-    }
-  </style>
+</style>
 </head>
 <body>
-  <div class="app" role="main">
-    <header class="topbar" role="banner">
-      <div class="logo">
-        <div class="mark">AC</div>
-        <div>
-          <div class="text">AMAR</div>
-          <div class="small">CLUB</div>
-        </div>
-      </div>
-      <div class="balance" aria-hidden>
-        Balance
-        <span class="amount">৳0.02</span>
-      </div>
-    </header>
+<header>
+    <strong>SocialHub</strong>
+    <input type="text" placeholder="Search SocialHub...">
+    <button class="theme-toggle">🌙</button>
+</header>
 
-    <!-- carousel -->
-    <section class="carousel" aria-roledescription="carousel" aria-label="Main promotions">
-      <div class="slides" id="slides">
-        <div class="slide" style="background:linear-gradient(90deg,#0f7a5a,#13b87f);">
-          <div style="flex:1">
-            <h2>AVIATOR<br/><small style="font-size:12px;opacity:.9">Rewards up to 50%</small></h2>
-            <p class="small" style="opacity:.95">Aviator's High Multiplier Award Winner</p>
-          </div>
-          <div class="plane">✈️</div>
-        </div>
-        <div class="slide" style="background:linear-gradient(90deg,#2b6cb0,#60a5fa);">
-          <div style="flex:1">
-            <h2>Fortune Gems</h2>
-            <p class="small">Spin the wheel — big prizes</p>
-          </div>
-          <div class="plane">💎</div>
-        </div>
-        <div class="slide" style="background:linear-gradient(90deg,#b94b4b,#ff7a7a);">
-          <div style="flex:1">
-            <h2>Lottery</h2>
-            <p class="small">Try your luck</p>
-          </div>
-          <div class="plane">🎟️</div>
-        </div>
-      </div>
-      <div class="dots" id="dots">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-    </section>
-
-    <div class="notice" role="status" aria-live="polite">
-      <div class="play">►</div>
-      <div class="txt">1. Welcome to become a member of the AMAR CLUB family. We sincerely invite you...</div>
-      <button style="background:transparent;border:0;color:var(--green-dark);font-weight:700">Detail</button>
+<main>
+    <div class="sidebar">
+        <h3>Menu</h3>
+        <ul>
+            <li>Home</li>
+            <li>Friends</li>
+            <li>Groups</li>
+            <li>Marketplace</li>
+        </ul>
     </div>
 
-    <!-- categories -->
-    <div class="cats" aria-label="categories">
-      <div class="cat">
-        <div class="ico">🎰</div>
-        <div>Hot Slots</div>
-      </div>
-      <div class="cat">
-        <div class="ico">🎟️</div>
-        <div>Lottery</div>
-      </div>
-      <div class="cat">
-        <div class="ico">🕹️</div>
-        <div>Slots</div>
-      </div>
-      <div class="cat">
-        <div class="ico">✈️</div>
-        <div>Original</div>
-      </div>
-      <div class="cat">
-        <div class="ico">💰</div>
-        <div>Card</div>
-      </div>
+    <div class="feed">
+        <div class="card story-section">
+            <div class="story-container">
+                <div class="story" style="background-image:url('https://picsum.photos/100/150?1')"><span>John</span></div>
+                <div class="story" style="background-image:url('https://picsum.photos/100/150?2')"><span>Amy</span></div>
+                <div class="story" style="background-image:url('https://picsum.photos/100/150?3')"><span>Mark</span></div>
+            </div>
+        </div>
+        <div class="card composer">
+            <textarea id="postInput" placeholder="What's on your mind?" style="width:100%;border:none;resize:none;background:var(--card-bg);color:var(--text)"></textarea>
+            <button onclick="addPost()">Post</button>
+        </div>
+        <div id="posts"></div>
     </div>
 
-    <!-- recommended -->
-    <div class="section-title">
-      <div class="bar" aria-hidden></div>
-      <h3>Recommended Games</h3>
+    <div class="rightbar">
+        <h3>Contacts</h3>
+        <p>Jane</p>
+        <p>Paul</p>
+        <p>Lisa</p>
     </div>
-    <div class="section-sub">The most popular electronic games among players</div>
+</main>
 
-    <div class="games" id="gameGrid">
-      <!-- card 1 -->
-      <article class="card" role="article" aria-label="Fortune Gems 2">
-        <div class="thumb" style="background:
-          radial-gradient(circle at 30% 30%, #f9d423, #f97316), linear-gradient(90deg,#6b21a8,#3b82f6);">
-        </div>
-        <h4>FORTUNE GEMS 2</h4>
-        <div class="odds">odds of&nbsp;<strong>96.67%</strong></div>
-      </article>
+<script>
+    const themeBtn = document.querySelector('.theme-toggle');
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        themeBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    });
 
-      <!-- card 2 -->
-      <article class="card" role="article" aria-label="Money Coming">
-        <div class="thumb" style="background:
-          linear-gradient(135deg,#10b981,#34d399); display:flex; align-items:center; justify-content:center;">
-          <div style="font-weight:800;color:#053019">৳</div>
-        </div>
-        <h4>MONEY COMING</h4>
-        <div class="odds">odds of&nbsp;<strong>97.95%</strong></div>
-      </article>
-
-      <!-- card 3 -->
-      <article class="card" role="article" aria-label="Aviator">
-        <div class="thumb" style="background:
-          linear-gradient(135deg,#ef4444,#f97316); display:flex; align-items:center; justify-content:center;">
-          <div style="font-weight:800;color:white">✈️</div>
-        </div>
-        <h4>AVIATOR</h4>
-        <div class="odds">odds of&nbsp;<strong>97%</strong></div>
-      </article>
-
-      <!-- card 4 -->
-      <article class="card" role="article" aria-label="Chicken Road">
-        <div class="thumb" style="background:
-          linear-gradient(135deg,#f59e0b,#fb923c); display:flex; align-items:center; justify-content:center;">
-          <div style="font-weight:800;color:#5a2d00">🐔</div>
-        </div>
-        <h4>CHICKEN ROAD</h4>
-        <div class="odds">odds of&nbsp;<strong>95.12%</strong></div>
-      </article>
-    </div>
-
-    <!-- floating button -->
-    <div class="add-desktop" role="button" aria-label="Add to Desktop">
-      ➕ Add to Desktop
-    </div>
-
-  </div>
-
-  <!-- bottom nav -->
-  <nav class="bnav" role="navigation" aria-label="primary">
-    <button class="active"><span style="font-size:18px">🏷️</span><span>Promotion</span></button>
-    <button><span style="font-size:18px">🎁</span><span>Activity</span></button>
-    <button><span style="font-size:18px">🎮</span><span>Game</span></button>
-    <button><span style="font-size:18px">👛</span><span>Wallet</span></button>
-    <button><span style="font-size:18px">👤</span><span>Account</span></button>
-  </nav>
-
-  <script>
-    // simple carousel logic
-    (function(){
-      const slides = document.getElementById('slides');
-      const dots = [...document.querySelectorAll('#dots .dot')];
-      let idx = 0;
-      const total = slides.children.length;
-
-      function go(i){
-        idx = (i + total) % total;
-        slides.style.transform = 'translateX(' + (-idx * 100) + '%)';
-        dots.forEach((d,di)=> d.classList.toggle('active', di===idx));
-      }
-      // auto rotate
-      let timer = setInterval(()=> go(idx+1), 3500);
-
-      // pause on hover
-      const carousel = document.querySelector('.carousel');
-      carousel.addEventListener('mouseenter', ()=> clearInterval(timer));
-      carousel.addEventListener('mouseleave', ()=> timer = setInterval(()=> go(idx+1), 3500));
-
-      // dot clicks
-      dots.forEach((d,i)=> d.addEventListener('click', ()=> { go(i); }));
-    })();
-  </script>
+    function addPost(){
+        const text = document.getElementById('postInput').value.trim();
+        if(!text) return;
+        const postDiv = document.createElement('div');
+        postDiv.className = 'card';
+        postDiv.innerHTML = `<p>${text}</p><small>Just now</small>`;
+        document.getElementById('posts').prepend(postDiv);
+        document.getElementById('postInput').value = '';
+    }
+</script>
 </body>
 </html>
