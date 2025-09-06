@@ -1,166 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SocialHub - Modern Facebook Style</title>
-<style>
+  <title>Mini Facebook</title>
+  <style>
     body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        --bg: #f0f2f5;
-        --text: #050505;
-        --card-bg: #fff;
-        --nav-bg: #fff;
-        --border: #ddd;
-    }
-    body.dark {
-        --bg: #18191a;
-        --text: #e4e6eb;
-        --card-bg: #242526;
-        --nav-bg: #242526;
-        --border: #3a3b3c;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
     }
     header {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%;
-        background: var(--nav-bg);
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        border-bottom: 1px solid var(--border);
-        z-index: 10;
+      background: #1877f2;
+      color: white;
+      padding: 15px;
+      font-size: 24px;
+      font-weight: bold;
     }
-    header input {
-        flex: 1;
-        padding: 6px 10px;
-        border-radius: 20px;
-        border: none;
-        background: var(--bg);
-        margin-left: 10px;
+    .container {
+      display: flex;
+      margin: 20px;
     }
-    main {
-        display: grid;
-        grid-template-columns: 250px 1fr 250px;
-        margin-top: 60px;
-        gap: 20px;
-        padding: 20px;
-    }
-    .sidebar, .rightbar {
-        background: var(--card-bg);
-        border-radius: 10px;
-        padding: 10px;
-        height: fit-content;
+    .sidebar {
+      width: 20%;
+      padding: 10px;
     }
     .feed {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+      width: 60%;
+      padding: 10px;
     }
-    .card {
-        background: var(--card-bg);
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px solid var(--border);
+    .rightbar {
+      width: 20%;
+      padding: 10px;
     }
-    .story-container {
-        display: flex;
-        gap: 10px;
-        overflow-x: auto;
+    .post-box {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
     }
-    .story {
-        min-width: 100px;
-        height: 150px;
-        background: gray;
-        border-radius: 10px;
-        flex-shrink: 0;
-        background-size: cover;
-        background-position: center;
-        position: relative;
+    .post-box textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
     }
-    .story span {
-        position: absolute;
-        bottom: 5px;
-        left: 5px;
-        font-size: 12px;
-        background: rgba(0,0,0,0.5);
-        color: white;
-        padding: 2px 5px;
-        border-radius: 5px;
+    .post-box button {
+      margin-top: 10px;
+      padding: 10px;
+      background: #1877f2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
-    button {
-        background: #1877f2;
-        color: white;
-        border: none;
-        padding: 8px 12px;
-        border-radius: 5px;
-        cursor: pointer;
+    .post {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
     }
-    .theme-toggle {
-        margin-left: 10px;
-    }
-</style>
+  </style>
 </head>
 <body>
-<header>
-    <strong>SocialHub</strong>
-    <input type="text" placeholder="Search SocialHub...">
-    <button class="theme-toggle">🌙</button>
-</header>
+  <header>Mini Facebook</header>
 
-<main>
+  <div class="container">
     <div class="sidebar">
-        <h3>Menu</h3>
-        <ul>
-            <li>Home</li>
-            <li>Friends</li>
-            <li>Groups</li>
-            <li>Marketplace</li>
-        </ul>
+      <h3>Menu</h3>
+      <p>Profile</p>
+      <p>Friends</p>
+      <p>Groups</p>
     </div>
 
     <div class="feed">
-        <div class="card story-section">
-            <div class="story-container">
-                <div class="story" style="background-image:url('https://picsum.photos/100/150?1')"><span>John</span></div>
-                <div class="story" style="background-image:url('https://picsum.photos/100/150?2')"><span>Amy</span></div>
-                <div class="story" style="background-image:url('https://picsum.photos/100/150?3')"><span>Mark</span></div>
-            </div>
-        </div>
-        <div class="card composer">
-            <textarea id="postInput" placeholder="What's on your mind?" style="width:100%;border:none;resize:none;background:var(--card-bg);color:var(--text)"></textarea>
-            <button onclick="addPost()">Post</button>
-        </div>
-        <div id="posts"></div>
+      <div class="post-box">
+        <textarea id="postInput" placeholder="What's on your mind?"></textarea>
+        <button onclick="addPost()">Post</button>
+      </div>
+      <div id="posts"></div>
     </div>
 
     <div class="rightbar">
-        <h3>Contacts</h3>
-        <p>Jane</p>
-        <p>Paul</p>
-        <p>Lisa</p>
+      <h3>Contacts</h3>
+      <p>Friend 1</p>
+      <p>Friend 2</p>
+      <p>Friend 3</p>
     </div>
-</main>
+  </div>
 
-<script>
-    const themeBtn = document.querySelector('.theme-toggle');
-    themeBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-        themeBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-    });
+  <script>
+    function addPost() {
+      let postText = document.getElementById("postInput").value;
+      if (postText.trim() === "") return;
 
-    function addPost(){
-        const text = document.getElementById('postInput').value.trim();
-        if(!text) return;
-        const postDiv = document.createElement('div');
-        postDiv.className = 'card';
-        postDiv.innerHTML = `<p>${text}</p><small>Just now</small>`;
-        document.getElementById('posts').prepend(postDiv);
-        document.getElementById('postInput').value = '';
+      let postDiv = document.createElement("div");
+      postDiv.className = "post";
+      postDiv.innerText = postText;
+
+      document.getElementById("posts").prepend(postDiv);
+      document.getElementById("postInput").value = "";
     }
-</script>
+  </script>
 </body>
 </html>
