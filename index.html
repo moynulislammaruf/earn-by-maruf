@@ -1,81 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-  <title>Mini YouTube</title>
+  <meta charset="UTF-8">
+  <title>Mini Flixmet</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-    }
-    header {
-      background: #ff0000;
-      color: white;
-      padding: 15px;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .container {
-      display: flex;
-      margin: 20px;
-    }
-    .video-player {
-      width: 70%;
-      padding: 10px;
-    }
-    .video-list {
-      width: 30%;
-      padding: 10px;
-      border-left: 1px solid #ddd;
-    }
-    .video-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-    .video-item img {
-      width: 120px;
-      border-radius: 5px;
-      margin-right: 10px;
-    }
-    iframe {
-      width: 100%;
-      height: 400px;
-      border-radius: 10px;
-    }
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+    nav { background: #333; color: white; padding: 10px; }
+    nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
+    nav li { margin-right: 15px; cursor: pointer; }
+    nav li:hover { text-decoration: underline; }
+    .container { padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+    .movie-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .movie-card img { width: 100%; display: block; }
+    .movie-info { padding: 10px; }
+    .movie-info h3 { margin: 0 0 8px; font-size: 18px; }
+    .movie-info p { margin: 0; color: #555; font-size: 14px; }
+    .movie-info button { margin-top: 8px; padding: 6px 12px; background: #007BFF; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    .movie-info button:hover { background: #0056b3; }
   </style>
 </head>
 <body>
-  <header>Mini YouTube</header>
 
-  <div class="container">
-    <div class="video-player">
-      <iframe id="mainVideo" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-      <h2 id="videoTitle">Sample Video</h2>
-    </div>
+  <nav>
+    <ul>
+      <li>Home</li>
+      <li>Latest Movie</li>
+      <li>হিন্দি Dubbed</li>
+      <li>Bangla Movie</li>
+      <li>Genres</li>
+    </ul>
+  </nav>
 
-    <div class="video-list">
-      <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'Awesome Music Video')">
-        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg">
-        <p>Awesome Music Video</p>
-      </div>
-      <div class="video-item" onclick="playVideo('3JZ_D3ELwOQ', 'Funny Cat Video')">
-        <img src="https://img.youtube.com/vi/3JZ_D3ELwOQ/0.jpg">
-        <p>Funny Cat Video</p>
-      </div>
-      <div class="video-item" onclick="playVideo('9bZkp7q19f0', 'Gangnam Style')">
-        <img src="https://img.youtube.com/vi/9bZkp7q19f0/0.jpg">
-        <p>Gangnam Style</p>
+  <section class="container">
+    <div class="movie-card">
+      <img src="https://via.placeholder.com/200x300" alt="Movie Thumbnail">
+      <div class="movie-info">
+        <h3>Movie Title</h3>
+        <p>WEB-DL | 480P</p>
+        <button>Watch & Download</button>
       </div>
     </div>
-  </div>
+    <!-- আরও কার্ড এখানে যুক্ত করো -->
+  </section>
 
-  <script>
-    function playVideo(videoId, title) {
-      document.getElementById("mainVideo").src = "https://www.youtube.com/embed/" + videoId;
-      document.getElementById("videoTitle").innerText = title;
-    }
-  </script>
 </body>
 </html>
