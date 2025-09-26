@@ -155,20 +155,29 @@
 
       <div class="flex items-center space-x-3">
         <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white card-shadow">
-          <img src="https://t.me/i/userpic/320/cDzsoH_zM758EgJe1fjLlBdVU9PvSo4ezdP8iXGlp8twlIAAneWOErNwE-E4Aw-T.svg" alt="Profile" class="w-full h-full object-cover" />
-        </div>
-        <div>
-          <div class="flex items-center space-x-1">
-            <span class="font-semibold text-gray-800 text-sm truncate max-w-[250px] block">
-              👑𝐧ёţ𝚑ªc𝓴ё𝒓║▌💕✿ ▪️🐾 
-            </span>
-            <i class="ri-verified-badge-fill text-green-500 text-sm"></i>
-          </div>
-          <div class="text-xs text-gray-500 truncate max-w-[250px] block">
-            @itsmyproffession - 7794535320
-          </div>
-        </div>
-      </div>
+         // --- User & Profile ---
+
+    function loadTelegramUser() {
+
+        if (tgUser) {
+
+            document.getElementById('username').textContent = tgUser.first_name || 'Telegram User';
+
+            const profilePicDiv = document.getElementById('profile-pic');
+
+            if (tgUser.photo_url) {
+
+                profilePicDiv.innerHTML = `<img src="${tgUser.photo_url}" alt="P">`;
+
+            } else {
+
+                profilePicDiv.textContent = (tgUser.first_name || 'U').charAt(0);
+
+            }
+
+        }
+
+    }
 
       <!-- Right: Balance -->
       <div class="text-right">
