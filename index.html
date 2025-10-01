@@ -9,19 +9,11 @@
     :root{
       --purple:#7c3aed;
       --purple-dark:#5b21b6;
-      --accent:#f7f9fa;
-      --card-bg:#ffffff;
       --muted:#6b7280;
-      --radius:14px;
-      --shadow: 0 6px 18px rgba(15,23,42,0.08);
+      --shadow:0 6px 18px rgba(15,23,42,0.08);
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,Segoe UI,Roboto;
-      background:#f3f6f5;
-      color:#0f1724;
-    }
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto;background:#f3f6f5;color:#0f1724;}
     .app{max-width:420px;margin:0 auto;padding:12px;}
     /* top bar */
     .topbar{display:flex;justify-content:space-between;align-items:center;padding:8px 4px;}
@@ -33,8 +25,7 @@
     /* carousel */
     .carousel{margin:8px 0;border-radius:12px;overflow:hidden;position:relative;height:140px;box-shadow:var(--shadow);}
     .slides{display:flex;height:100%;transition:transform .45s;}
-    .slide{min-width:100%;color:white;display:flex;align-items:center;gap:14px;padding:16px;}
-    .slide h2{margin:0;font-size:20px;}
+    .slide{min-width:100%;color:white;display:flex;align-items:center;padding:16px;font-size:18px;font-weight:700;}
     .dots{display:flex;gap:6px;position:absolute;bottom:8px;left:50%;transform:translateX(-50%);}
     .dot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,0.4);}
     .dot.active{background:white;width:24px;}
@@ -69,37 +60,27 @@
     <header class="topbar">
       <div class="logo">
         <div class="mark">AW</div>
-        <div>
-          <div class="text">AKRAM</div>
-          <div style="font-size:12px;color:var(--muted)">WIN</div>
-        </div>
+        <div><div class="text">AKRAM</div><div style="font-size:12px;color:var(--muted)">WIN</div></div>
       </div>
       <div class="balance">Balance<span class="amount">৳10000.0</span></div>
     </header>
 
-    <!-- home page -->
+    <!-- HOME PAGE -->
     <div id="home" class="page active">
       <section class="carousel">
         <div class="slides" id="slides">
-          <div class="slide" style="background:linear-gradient(90deg,#5b21b6,#7c3aed);">
-            <div><h2>Aviator Rewards</h2><p>Up to 50% Bonus</p></div>
-          </div>
-          <div class="slide" style="background:linear-gradient(90deg,#9333ea,#a855f7);">
-            <div><h2>Fortune Gems</h2><p>Spin and Win</p></div>
-          </div>
+          <div class="slide" style="background:linear-gradient(90deg,#5b21b6,#7c3aed);">Aviator Rewards</div>
+          <div class="slide" style="background:linear-gradient(90deg,#9333ea,#a855f7);">Fortune Gems</div>
         </div>
         <div class="dots" id="dots"><div class="dot active"></div><div class="dot"></div></div>
       </section>
-
       <div class="notice">Welcome to AKRAM WIN family 🎉</div>
-
       <div class="cats">
         <div class="cat"><div class="ico">🎰</div>Hot Slots</div>
         <div class="cat"><div class="ico">🎟</div>Lottery</div>
         <div class="cat"><div class="ico">🕹</div>Slots</div>
         <div class="cat"><div class="ico">✈</div>Original</div>
       </div>
-
       <div class="section-title"><div class="bar"></div><h3>Recommended Games</h3></div>
       <div class="games">
         <div class="card"><div class="thumb" style="background:purple"></div><h4>FORTUNE GEMS 2</h4><div class="odds">96.6%</div></div>
@@ -109,29 +90,44 @@
       </div>
     </div>
 
-    <!-- activity page -->
-    <div id="activity" class="page">
-      <h2>Activity Page</h2>
-      <p>এখানে আপনার প্রোমোশন ও ইভেন্ট দেখা যাবে।</p>
+    <!-- PROMOTION PAGE -->
+    <div id="promotion" class="page">
+      <h2>Promotion</h2>
+      <p>এখানে সর্বশেষ বোনাস অফার ও কুপন থাকবে।</p>
     </div>
 
-    <!-- account page -->
+    <!-- ACTIVITY PAGE -->
+    <div id="activity" class="page">
+      <h2>Activity</h2>
+      <p>এখানে আপনার সমস্ত ইভেন্ট, গেম হিস্ট্রি দেখা যাবে।</p>
+    </div>
+
+    <!-- WALLET PAGE -->
+    <div id="wallet" class="page">
+      <h2>Wallet</h2>
+      <p>এখানে ডিপোজিট, উইথড্র ও ব্যালেন্স হিস্ট্রি থাকবে।</p>
+    </div>
+
+    <!-- ACCOUNT PAGE -->
     <div id="account" class="page">
       <h2>My Account</h2>
-      <p>এখানে লগইন / প্রোফাইল ডিটেইলস থাকবে।</p>
+      <p>এখানে প্রোফাইল ডিটেইলস ও লগইন অপশন থাকবে।</p>
     </div>
   </div>
 
   <div class="add-desktop">➕ Add to Desktop</div>
 
+  <!-- Bottom Navigation -->
   <nav class="bnav">
     <button data-page="home" class="active">🏠<span>Home</span></button>
+    <button data-page="promotion">🏷<span>Promotion</span></button>
     <button data-page="activity">🎁<span>Activity</span></button>
+    <button data-page="wallet">👛<span>Wallet</span></button>
     <button data-page="account">👤<span>Account</span></button>
   </nav>
 
   <script>
-    // bottom nav switching
+    // bottom nav page switching
     document.querySelectorAll(".bnav button").forEach(btn=>{
       btn.addEventListener("click",()=>{
         document.querySelectorAll(".bnav button").forEach(b=>b.classList.remove("active"));
@@ -140,7 +136,7 @@
         document.getElementById(btn.dataset.page).classList.add("active");
       });
     });
-    // carousel auto slide
+    // simple carousel auto slide
     const slides=document.getElementById("slides");
     const dots=[...document.querySelectorAll("#dots .dot")];
     let idx=0;
